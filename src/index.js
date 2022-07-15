@@ -18,7 +18,7 @@ mongoose.connect(url, {
 const exitHandler = () => {
   if (server) {
     server.close(() => {
-      logger.info('Server closed');
+      console.log('Server closed');
       process.exit(1);
     });
   } else {
