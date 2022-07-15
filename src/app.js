@@ -6,7 +6,8 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser')
 const connectMongoDb = require('./databases/connectMongo');
 const routes = require('./routes');
-const { logError, isOperationalError } = require('./errors/errorHandle');
+const { errorConverter, errorHandler } = require('./middlewares/error');
+const ApiError = require('./utils/ApiError');
 const PORT = process.env.PORT || 3000;
 // init app
 const app = express();
@@ -27,25 +28,18 @@ app.options('*', cors());
 
 app.use('/api/swimmingpool/v1',routes);
 
-app.use((req, res) => {
-    res.status(404).send({ url: `${req.path} not found` });
-});
+app.use((req, res, next) => {
+    next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
+  });
 
 app.listen(PORT, async () => {
     await connectMongoDb();
     console.log(`Server is running on port ${PORT}`);
 });
 
-process.on('unhandledRejection', error => {
-    throw error
-})
-   
-process.on('uncaughtException', error => {
-    logError(error)
+app.use(errorConverter);
 
-    if (!isOperationalError(error)) {
-        process.exit(1)
-    }
-})
+// handle error
+app.use(errorHandler);
 
 module.exports = app;
