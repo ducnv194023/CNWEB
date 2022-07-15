@@ -3,6 +3,7 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
+const httpStatus = require('http-status');
 const cookieParser = require('cookie-parser')
 const connectMongoDb = require('./databases/connectMongo');
 const routes = require('./routes');
