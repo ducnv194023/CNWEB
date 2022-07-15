@@ -5,7 +5,6 @@ const cors = require('cors');
 const morgan = require('morgan');
 const httpStatus = require('http-status');
 const cookieParser = require('cookie-parser')
-const connectMongoDb = require('./databases/connectMongo');
 const routes = require('./routes');
 const { errorConverter, errorHandler } = require('./middlewares/error');
 const ApiError = require('./utils/ApiError');
@@ -32,11 +31,6 @@ app.use('/api/swimmingpool/v1',routes);
 app.use((req, res, next) => {
     next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
   });
-
-app.listen(PORT, async () => {
-    await connectMongoDb();
-    console.log(`Server is running on port ${PORT}`);
-});
 
 app.use(errorConverter);
 
