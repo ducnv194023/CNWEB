@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const app = require('./app');
-const logger = require('logger');
 
 let server;
 const url = process.env.MONGO_URL ;
@@ -9,9 +8,9 @@ mongoose.connect(url, {
   useUnifiedTopology: true,
   connectTimeoutMS: 1000
 }).then(() => {
-    logger.info('Connected to MongoDB');
+    console.log('Connected to MongoDB');
     server = app.listen(process.env.PORT, () => {
-      logger.info(`Listening to port ${process.env.PORT}`);
+      console.log(`Listening to port ${process.env.PORT}`);
     });
   });
 
@@ -28,7 +27,7 @@ const exitHandler = () => {
 };
 
 const unexpectedErrorHandler = (error) => {
-  logger.error(error);
+  console.error(error);
   exitHandler();
 };
 
@@ -36,7 +35,7 @@ process.on('uncaughtException', unexpectedErrorHandler);
 process.on('unhandledRejection', unexpectedErrorHandler);
 
 process.on('SIGTERM', () => {
-  logger.info('SIGTERM received');
+  console.log('SIGTERM received');
   if (server) {
     server.close();
   }

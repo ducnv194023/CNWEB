@@ -6,7 +6,7 @@
   "author": "buidat <dinhtuan95qh@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon src/app.js"
+    "start": "nodemon src/index.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -17,7 +17,9 @@
     "express": "^4.18.1",
     "express-validator": "^6.14.2",
     "helmet": "^5.1.0",
+    "http-status": "^1.5.2",
     "jsonwebtoken": "^8.5.1",
+    "logger": "^0.0.1",
     "mongoose": "^6.4.2",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.18",

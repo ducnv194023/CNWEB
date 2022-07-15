@@ -8,7 +8,6 @@ const cookieParser = require('cookie-parser')
 const routes = require('./routes');
 const { errorConverter, errorHandler } = require('./middlewares/error');
 const ApiError = require('./utils/ApiError');
-const PORT = process.env.PORT || 3000;
 // init app
 const app = express();
 // set security HTTP headers
