@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const User = require("../models/users.model");
 const { throwBadRequest } = require("../utils/badRequestHandlingUtils");
-const { UserMsg } = require("../utils/constant");
+const { UserMsg } = require("../utils/Message");
 const pick = require("../utils/pick");
 const { attachTokenToRes, generateAccessToken } = require("../helpers/jwt");
 const createToken = require("../helpers/createToken");

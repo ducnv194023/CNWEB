@@ -1,7 +1,7 @@
 const { sendSuccess } = require("../libs/response");
 const catchAsync = require("../utils/catchAsync");
 const authService = require("../services/auth.service");
-const { SystemMsg } = require("../utils/constant");
+const { SystemMsg } = require("../utils/Message");
 
 const register = catchAsync(async (req, res) => {
     const newuser = await authService.registerUser(req.body);

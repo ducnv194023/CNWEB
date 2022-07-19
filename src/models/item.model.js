@@ -16,7 +16,7 @@ const itemSchema = new mongoose.Schema(
         required: true,
     },
     userId : {
-        type: mongoose.type.ObjectId(),
+        type: String,
         required: true,
     },
     phone: {
@@ -34,7 +34,7 @@ const itemSchema = new mongoose.Schema(
         type: Date,
     },
     categoryId: {
-        type: mongoose.type.ObjectId(),
+        type: String,
         required: true,
     },
     categoryName: {
