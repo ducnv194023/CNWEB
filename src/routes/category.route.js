@@ -1,22 +1,22 @@
 const { Router } = require("express");
-const AuthController = require("../controllers/auth.controller");
-const { authValidation } = require("../validation/auth.validation");
+const categoryController = require("../controllers/category.controller");
+
 
 const router = Router();
 
 router.route('/')
 // Thêm một loại danh mục
-.post(createCategory)
+.post(categoryController.createCategory)
 // Lấy ra tất cả loại danh mục
-.get(getCategories);
+.get(categoryController.getCategories);
 
 
 router.route('/categoryId')
 // Lấy ra một danh mục
-.get(getCategory)
+.get(categoryController.getCategoryById)
 // Cập nhật danh mục
-.patch(updateCategory)
+.patch(categoryController.updateCategoryById)
 // Xóa một loại danh mục
-.delete(deleteCategory)
+.delete(categoryController.deleteCategoryById)
 
 module.exports = router;
