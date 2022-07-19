@@ -9,7 +9,10 @@ const SystemMsg = {
     successRegister: "Đăng kí thành công",
     successLogout: "Đăng xuất thành công",
 }
-
+const status = {
+    enabled: 'enabled',
+    disabled: 'disabled',
+}
 module.exports = {
     UserMsg,
     SystemMsg,
