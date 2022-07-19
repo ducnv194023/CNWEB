@@ -16,4 +16,5 @@ const status = {
 module.exports = {
     UserMsg,
     SystemMsg,
+    status,
 }
