@@ -13,8 +13,13 @@ const status = {
     enabled: 'enabled',
     disabled: 'disabled',
 }
+const itemType = {
+    date: 'date',
+    month: 'month',
+}
 module.exports = {
     UserMsg,
     SystemMsg,
     status,
+    itemType,
 }
