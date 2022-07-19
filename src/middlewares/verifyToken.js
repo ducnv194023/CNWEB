@@ -6,7 +6,7 @@ const verifyToken = async (req, res, next) => {
     const token = authHeader && authHeader.split(" ")[1];
 
     if (!token) {
-        return sendError(res, 401, { message: "Access token not found" });
+        return sendError({res, code: 401 , message: "Access token not found" });
     }
 
     try {
@@ -14,7 +14,7 @@ const verifyToken = async (req, res, next) => {
         req.user = user;
         next();
     } catch (error) {
-        return sendError(res, 403, { message: "Invalid token" });
+        return sendError({res, code: 403,  message: "Invalid token" });
     }
 };
 
