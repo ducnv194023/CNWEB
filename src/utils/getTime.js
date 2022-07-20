@@ -1,5 +1,6 @@
 const moment = require('moment-timezone');
 
+
 const getTimeFromDateToDate = ({ from, to }, filterKey = 'createdAt') => {
   const options = {};
   if (from) {
@@ -29,7 +30,18 @@ const getTimeByDate = ({ createdAt }, filterKey = 'createdAt') => {
   return options;
 };
 
+const getStartOfDay = () => {
+  const today = new Date();
+  today.setUTCHours(0, 00, 00, 000);
+  return today;
+};
+console.log(getStartOfDay())
+const converterStringToDate = (date) => {
+  return moment.tz(`${date} 00:00:00`, 'utc').toDate();
+}
 module.exports = {
   getTimeFromDateToDate,
   getTimeByDate,
+  getStartOfDay,
+  converterStringToDate,
 };

@@ -50,8 +50,7 @@ const itemSchema = new mongoose.Schema(
     },
     status: {
         type: String,
-        enum: [status.enabled, status.disabled],
-        default: status.enabled,
+        enum: [status.activated, status.not_yet_activated, status.deactivated, status.disabled],
     }
   },
   {
