@@ -28,7 +28,10 @@ const createItem = async (itemBody) => {
 
 // lấy tất cả vé bơi / đồ bơi
 const getItems = async (requestBody) => {
-  const filter = pick(requestBody, ['itemType'])
+  const filter = {}
+  const itemTypeString = _.get(requestBody, 'itemType')
+  const itemTypeList = itemTypeString.split(',')
+  filter.itemType = { $in: itemTypeList }
   if (!filter.status) {
     filter.status = {
       $ne: status.disabled

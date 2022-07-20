@@ -9,7 +9,7 @@ const createItem = catchAsync(async (req, res) => {
 })
 
 const getItems = catchAsync(async (req, res) => {
-  const categories = await itemService.getItems()
+  const categories = await itemService.getItems(req.body)
   sendSuccess({ res, data: categories, message: Message.itemMsg.success })
 })
 

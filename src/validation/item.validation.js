@@ -12,7 +12,7 @@ const createItem = Joi.object().keys({
 
 const getItems = {
   body: Joi.object().keys({
-    itemType: Joi.string().valid(itemType.ticketDate, itemType.ticketMonth, itemType.swimming_wear)
+    itemType: Joi.string()
   })
 }
 
