@@ -15,7 +15,7 @@ const itemSchema = new mongoose.Schema(
         type: String,
     },
     userId : {
-        type: mongoose.type.ObjectId(),
+        type: String,
     },
     phone: {
         type: String,
