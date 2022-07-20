@@ -26,21 +26,13 @@ const itemSchema = new mongoose.Schema(
     },
     itemType: {
         type: String,
-        enum: [itemType.date, itemType.month],
+        enum: [itemType.ticketDate, itemType.ticketMonth, itemType.swimming_wear],
     },
     startDate: {
         type: Date,
     },
     endDate: {
         type: Date,
-    },
-    categoryId: {
-        type: String,
-        required: true,
-    },
-    categoryName: {
-        type: String,
-        required: true,
     },
     description: {
         type: String,
