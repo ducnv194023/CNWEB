@@ -13,10 +13,11 @@ const getRevenueStatistic = async (getRevenueStatisticRequest) => {
   )
   const startDate = _.get(timeFilter, 'timeFromDateToDate.$gte')
   const endDate = _.get(timeFilter, 'timeFromDateToDate.$lte')
-  const getOrdersFromDateToDate = await Order.find({ paidedTime: { $gte: startDate }, paidedTime: { $lte: endDate }, status: status.paided })
+  const getOrdersFromDateToDate = await Order.find({ paidedTime: { $gte: startDate, $lte: endDate }, status: status.paided })
   const timeAtDateFilter = getTimeByDate({ createdAt: _.get(getRevenueStatistic, 'startDate') }, 'timeAtDate')
   const startOfDate = _.get(timeAtDateFilter, 'timeAtDate.$gte')
   const endOfDate = _.get(timeAtDateFilter, 'timeAtDate.$lte')
+  // eslint-disable-next-line no-unmodified-loop-condition
   while (startOfDate < endDate) {
     const getPriceOfOrdersAtDate = _.sumBy(getOrdersFromDateToDate, (getOrderFromDateToDate) => {
       if (getOrderFromDateToDate.paidedTime <= endOfDate && getOrderFromDateToDate.paidedTime >= startOfDate) {
@@ -24,7 +25,7 @@ const getRevenueStatistic = async (getRevenueStatisticRequest) => {
       }
     })
     getRevenueStatisticByDay.push({
-      date: startOfDate.toISOString(),
+      date: startOfDate.toISOString().split('T')[0],
       totalRevenueOfDay: getPriceOfOrdersAtDate
     })
     startOfDate.setDate(startOfDate.getDate() + 1)

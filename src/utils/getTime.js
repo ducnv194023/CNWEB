@@ -35,7 +35,6 @@ const getStartOfDay = () => {
   today.setUTCHours(0, 00, 00, 000);
   return today;
 };
-console.log(getStartOfDay())
 const converterStringToDate = (date) => {
   return moment.tz(`${date} 00:00:00`, 'utc').toDate();
 }
