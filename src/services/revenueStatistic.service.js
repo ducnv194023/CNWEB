@@ -2,6 +2,7 @@ const _ = require("lodash");
 const Order = require("../models/order.model");
 const pick = require("../utils/pick");
 const { getTimeByDate, getTimeFromDateToDate } = require("../utils/getTime");
+const { status } = require("../utils/constant");
 
 const getRevenueStatistic = async (getRevenueStatisticRequest) => {
   const getRevenueStatisticByDay = [];
@@ -12,7 +13,7 @@ const getRevenueStatistic = async (getRevenueStatisticRequest) => {
   );
   const startDate = _.get(timeFilter, "timeFromDateToDate.$gte");
   const endDate = _.get(timeFilter, "timeFromDateToDate.$lte");
-  const getOrdersFromDateToDate = await Order.find({ paidedTime: { $gte: startDate }, paidedTime: { $lte: endDate } });
+  const getOrdersFromDateToDate = await Order.find({ paidedTime: { $gte: startDate }, paidedTime: { $lte: endDate }, status: status.paided });
   const timeAtDateFilter = getTimeByDate({ createdAt: _.get(getRevenueStatistic, "startDate") }, "timeAtDate");
   let startOfDate = _.get(timeAtDateFilter, "timeAtDate.$gte");
   let endOfDate = _.get(timeAtDateFilter, "timeAtDate.$lte");
