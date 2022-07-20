@@ -13,15 +13,12 @@ const itemSchema = new mongoose.Schema(
     },
     userName: {
         type: String,
-        required: true,
     },
     userId : {
         type: mongoose.type.ObjectId(),
-        required: true,
     },
     phone: {
         type: String,
-        required: true,
     },
     itemType: {
         type: String,
@@ -46,7 +43,6 @@ const itemSchema = new mongoose.Schema(
     },
     qrCode: {
         type: String,
-        required: true,
     },
     status: {
         type: String,
