@@ -1,54 +1,54 @@
-const mongoose = require('mongoose');
-const {status, itemType} = require('../utils/constant');
+const mongoose = require('mongoose')
+const { status, itemType } = require('../utils/constant')
 
 const itemSchema = new mongoose.Schema(
   {
     itemName: {
       type: String,
-      required: true,
+      required: true
     },
     price: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true
     },
     image: {
-        type: String,
-        required: true,
+      type: String,
+      required: true
     },
     userName: {
-        type: String,
+      type: String
     },
-    userId : {
-        type: String,
+    userId: {
+      type: String
     },
     phone: {
-        type: String,
+      type: String
     },
     itemType: {
-        type: String,
-        enum: [itemType.ticketDate, itemType.ticketMonth, itemType.swimming_wear],
+      type: String,
+      enum: [itemType.ticketDate, itemType.ticketMonth, itemType.swimming_wear]
     },
     startDate: {
-        type: Date,
+      type: Date
     },
     endDate: {
-        type: Date,
+      type: Date
     },
     description: {
-        type: String,
+      type: String
     },
     qrCode: {
-        type: String,
+      type: String
     },
     status: {
-        type: String,
-        enum: [status.activated, status.not_yet_activated, status.deactivated, status.disabled],
+      type: String,
+      enum: [status.activated, status.not_yet_activated, status.deactivated, status.disabled]
     }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
+)
 
-const item = mongoose.model('Item', itemSchema);
-module.exports = item;
+const item = mongoose.model('Item', itemSchema)
+module.exports = item

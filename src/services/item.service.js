@@ -1,7 +1,7 @@
 const _ = require('lodash')
 const Item = require('../models/item.model')
 const Message = require('../utils/Message')
-const { status, itemType } = require('../utils/constant')
+const { status } = require('../utils/constant')
 const { converterStringToDate, getStartOfDay } = require('../utils/getTime')
 const pick = require('../utils/pick')
 const { throwBadRequest } = require('../utils/badRequestHandlingUtils')
@@ -20,7 +20,8 @@ const createItem = async (itemBody) => {
     'itemName',
     'price',
     'itemType',
-    'description'
+    'description',
+    'image'
   ])
   return Item.create(item)
 }
@@ -103,7 +104,7 @@ const getOwnerTicket = async (requestBody) => {
     if (item.startDate > today) {
       item.status = status.deactivated
     }
-    if (endDate >= today && today >= startDate) {
+    if (item.endDate >= today && today >= item.startDate) {
       item.status = status.activated
     }
   })

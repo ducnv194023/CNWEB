@@ -1,56 +1,56 @@
-const mongoose = require('mongoose');
-const {status} = require('../utils/constant');
+const mongoose = require('mongoose')
+const { status } = require('../utils/constant')
 
 const orderSchema = new mongoose.Schema(
   {
     orderName: {
       type: String,
-      required: true,
+      required: true
     },
     orderItems: [
       {
         itemId: {
-          type: String,
+          type: String
         },
         itemName: {
-          type: String,
+          type: String
         },
         itemPrice: {
-          type: Number,
+          type: Number
         },
         itemQuantity: {
-          type: Number,
+          type: Number
         }
       }
     ],
     status: {
       type: String,
       enum: [status.unpaid, status.paided, status.disabled],
-      default: status.unpaid,
+      default: status.unpaid
     },
     userId: {
-      type: String,
+      type: String
     },
     userName: {
-      type: String,
+      type: String
     },
     userPhone: {
-      type: String,
+      type: String
     },
     totalPrice: {
-      type: Number,
+      type: Number
     },
     description: {
-      type: String,
+      type: String
     },
     paidedTime: {
-      type: Date,
-    },
+      type: Date
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
+)
 
-const order = mongoose.model('Order', orderSchema);
-module.exports = order;
+const order = mongoose.model('Order', orderSchema)
+module.exports = order
