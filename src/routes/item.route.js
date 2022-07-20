@@ -14,7 +14,7 @@ router.route('/sign-ticket').post(itemController.signTicket)
 // lấy ra vé đã mua của người dùng
 router.route('owner-ticket').post(itemController.getOwnerTicket)
 
-router.route('/categoryId')
+router.route('/:categoryId')
 // Lấy ra một danh mục
   .get(itemController.getItemById)
 // Cập nhật danh mục
