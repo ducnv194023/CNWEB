@@ -33,7 +33,7 @@ const signTicket = {
     image: Joi.string().required(),
     description: Joi.string(),
     userId: Joi.required().custom(objectId),
-    userName: Joi.string.required(),
+    userName: Joi.string().required(),
     phone: Joi.string().required(),
     startDate: Joi.string().required(),
     endDate: Joi.string().required(),
