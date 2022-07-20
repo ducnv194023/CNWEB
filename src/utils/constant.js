@@ -8,8 +8,8 @@ const status = {
     paided: 'paided',
 }
 const itemType = {
-    date: 'date',
-    month: 'month',
+    ticketDate: 'ticketDate',
+    ticketMonth: 'ticketMonth',
     swimming_wear: 'swimming_wear',
 }
 module.exports = {

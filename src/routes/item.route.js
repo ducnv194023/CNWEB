@@ -7,8 +7,7 @@ const router = Router();
 router.route('/').post(itemController.createItem);
 
 // Lấy ra tất cả vé bơi / đồ bơi
-router.route('/pagination')
-.post(itemController.getItems);
+router.route('/pagination').post(itemController.getItems);
 
 // người dùng mua vé bơi, thêm thông tin người dùng vào trong vé
 router.route('/sign-ticket').post(itemController.signTicket);
