@@ -22,6 +22,7 @@ const createOrder = async (createOrderRequest, user) => {
 };
 
 const payOrder = async (payOrderRequest) => {
+  console.log(payOrderRequest);
     const payOrder = pick(payOrderRequest, ["orderId", "orderItems", "status"]);
     const orderId = _.get(payOrder, "orderId");
     throwBadRequest(!orderId, orderMsg.notFound);
@@ -31,7 +32,7 @@ const payOrder = async (payOrderRequest) => {
       });
     payOrder.totalPrice = _.sumBy(orderItems, "itemTotalPrice");
     const statusOfOrder = _.get(payOrder, "status");
-    if (statusOfOrder = status.paided) {
+    if (statusOfOrder === status.paided) {
       payOrder.paidedTime = Date.now();
     }
     return Order.findByIdAndUpdate(orderId, payOrder, {new: true});

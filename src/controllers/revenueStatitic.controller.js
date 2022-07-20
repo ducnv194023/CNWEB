@@ -1,5 +1,5 @@
 const catchAsync = require("../utils/catchAsync");
-const revenueStatisticService = require("../services/order.service");
+const revenueStatisticService = require("../services/revenueStatistic.service");
 const { sendSuccess } = require("../libs/response");
 const { revenueStatisticMsg } = require("../utils/Message");
 
