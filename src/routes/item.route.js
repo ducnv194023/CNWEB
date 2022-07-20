@@ -9,6 +9,8 @@ router.route('/')
 // Lấy ra tất cả vé bơi / đồ bơi
 .get(itemController.getItems);
 
+// người dùng mua vé bơi, thêm thông tin người dùng vào trong vé
+router.route('/sign-ticket').post(itemController.signTicket);
 
 router.route('/categoryId')
 // Lấy ra một danh mục

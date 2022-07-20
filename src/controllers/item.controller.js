@@ -31,10 +31,15 @@ const deleteItemById = catchAsync(async (req, res) => {
   sendSuccess({ res, message: Message.itemMsg.success });
 });
 
+const signTicket = catchAsync(async (req, res) => {
+  const ticket = await itemService.signTicket(req.body);
+  sendSuccess({ res, data: ticket, message: Message.itemMsg.success });
+})
 module.exports = {
   createItem,
   getItems,
   getItemById,
   updateItemById,
   deleteItemById,
+  signTicket,
 };

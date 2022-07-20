@@ -66,10 +66,30 @@ const deleteItemById = async (itemId) => {
   );
   return deleteItem;
 };
+
+const signTicket = async (requestBody) => {
+  const item = pick(itemBody, [
+    'itemName',
+    'price',
+    'image',
+    'userId',
+    'userName',
+    'phone',
+    'itemType',
+    'categoryId',
+    'categoryName',
+    'startDate',
+    'endDate',
+    'qrCode',
+    'description',
+  ]);
+  return Item.create(item);
+}
 module.exports = {
   createItem,
   getItems,
   getItemById,
   updateItemById,
   deleteItemById,
+  signTicket,
 };
