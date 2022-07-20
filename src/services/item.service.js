@@ -20,15 +20,9 @@ const createItem = async (itemBody) => {
   const item = pick(itemBody, [
     'itemName',
     'price',
-    'userName',
-    'userId',
-    'phone',
     'itemType',
-    'startDate',
-    'endDate',
     'categoryId',
     'categoryName',
-    'qrCode',
     'description',
   ]);
   return Item.create(item);
@@ -57,9 +51,6 @@ const updateItemById = async (itemUpdateRequest) => {
   const itemBody = pick(itemUpdateRequest, [
     'itemName',
     'price',
-    'startDate',
-    'endDate',
-    'qrCode',
     'description',
   ]);
     const updateItem = await Item.findByIdAndUpdate(
