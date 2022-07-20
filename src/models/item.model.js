@@ -31,7 +31,7 @@ const itemSchema = new mongoose.Schema(
         type: Date,
     },
     categoryId: {
-        type: mongoose.type.ObjectId(),
+        type: String,
         required: true,
     },
     categoryName: {
