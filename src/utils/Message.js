@@ -29,10 +29,16 @@ const orderMsg = {
     created: 'Tạo giao dịch thành công',
     success: 'Thành công',
 }
+
+const revenueStatisticMsg = {
+    success: 'Thành công',
+}
+
 module.exports = {
     categoryMsg,
     UserMsg,
     SystemMsg,
     orderMsg,
     itemMsg,
+    revenueStatisticMsg,
 }

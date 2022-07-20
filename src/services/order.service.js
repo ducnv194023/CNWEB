@@ -4,6 +4,7 @@ const Order = require("../models/order.model");
 const { throwBadRequest } = require("../utils/badRequestHandlingUtils");
 const { orderMsg } = require("../utils/Message");
 const pick = require("../utils/pick");
+const { status } = require("../utils/constant");
 
 const createOrder = async (createOrderRequest, user) => {
   const userCreatedOrder = await User.findById(user.id);
@@ -29,6 +30,10 @@ const payOrder = async (payOrderRequest) => {
         orderItem.itemTotalPrice = orderItem.itemPrice * orderItem.itemQuantity;
       });
     payOrder.totalPrice = _.sumBy(orderItems, "itemTotalPrice");
+    const statusOfOrder = _.get(payOrder, "status");
+    if (statusOfOrder = status.paided) {
+      payOrder.paidedTime = Date.now();
+    }
     return Order.findByIdAndUpdate(orderId, payOrder, {new: true});
 };
 
