@@ -5,7 +5,6 @@ const { orderMsg } = require("../utils/Message");
 
 const createOrder = catchAsync(async(req, res) => {
     const order = await orderService.createOrder(req.body, req.user);
-    console.log(order);
     sendSuccess({res, data: order, message: orderMsg.success});
 });
 
