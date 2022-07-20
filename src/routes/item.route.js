@@ -3,11 +3,12 @@ const itemController = require('../controllers/item.controller');
 
 const router = Router();
 
-router.route('/')
 // Thêm một vé bơi / đồ bơi
-.post(itemController.createItem)
+router.route('/').post(itemController.createItem);
+
 // Lấy ra tất cả vé bơi / đồ bơi
-.get(itemController.getItems);
+router.route('/pagination')
+.post(itemController.getItems);
 
 // người dùng mua vé bơi, thêm thông tin người dùng vào trong vé
 router.route('/sign-ticket').post(itemController.signTicket);

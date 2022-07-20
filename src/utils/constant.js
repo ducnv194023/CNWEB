@@ -10,6 +10,7 @@ const status = {
 const itemType = {
     date: 'date',
     month: 'month',
+    swimming_wear: 'swimming_wear',
 }
 module.exports = {
     status,

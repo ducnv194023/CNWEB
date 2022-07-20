@@ -21,16 +21,15 @@ const createItem = async (itemBody) => {
     'itemName',
     'price',
     'itemType',
-    'categoryId',
-    'categoryName',
     'description',
   ]);
   return Item.create(item);
 };
 
 // lấy tất cả vé bơi / đồ bơi
-const getItems = async () => {
-  let filter = {};
+const getItems = async (requestBody) => {
+
+  const filter = pick(requestBody,['itemType']);
   if (!filter.status) {
     filter.status = {
       $ne: status.disabled,
@@ -76,8 +75,6 @@ const signTicket = async (requestBody) => {
     'userName',
     'phone',
     'itemType',
-    'categoryId',
-    'categoryName',
     'startDate',
     'endDate',
     'qrCode',
