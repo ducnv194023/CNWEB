@@ -22,19 +22,20 @@ const createOrder = async (createOrderRequest, user) => {
 };
 
 const payOrder = async (payOrderRequest) => {
-  console.log(payOrderRequest);
-    const payOrder = pick(payOrderRequest, ["orderId", "orderItems", "status"]);
-    const orderId = _.get(payOrder, "orderId");
+    const orderId = _.get(payOrderRequest, "orderId");
     throwBadRequest(!orderId, orderMsg.notFound);
+    return Order.findByIdAndUpdate(orderId, { status: status.paided, paidedTime: Date.now() }, {new: true});
+};
+
+const updateOrder = async (updateOrderRequest) => {
+    const orderId = _.get(updateOrderRequest, "orderId");
+    throwBadRequest(!orderId, orderMsg.notFound);
+    const payOrder = pick(updateOrderRequest, ["orderName", "orderItems", "description"]);
     const orderItems = _.get(payOrder, "orderItems");
     _.forEach(orderItems, (orderItem) => {
         orderItem.itemTotalPrice = orderItem.itemPrice * orderItem.itemQuantity;
       });
     payOrder.totalPrice = _.sumBy(orderItems, "itemTotalPrice");
-    const statusOfOrder = _.get(payOrder, "status");
-    if (statusOfOrder === status.paided) {
-      payOrder.paidedTime = Date.now();
-    }
     return Order.findByIdAndUpdate(orderId, payOrder, {new: true});
 };
 
@@ -47,5 +48,6 @@ const getOrder = async (orderId) => {
 module.exports = {
     createOrder,
     payOrder,
+    updateOrder,
     getOrder,
 };

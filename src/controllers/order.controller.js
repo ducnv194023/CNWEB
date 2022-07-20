@@ -13,6 +13,11 @@ const payOrder = catchAsync(async(req, res) => {
     sendSuccess({res, message: orderMsg.success});
 });
 
+const updateOrder = catchAsync(async(req, res) => {
+    await orderService.updateOrder(req.body);
+    sendSuccess({res, message: orderMsg.success});
+});
+
 const getOrder = catchAsync(async(req, res) => {
     const { orderId } = req.params;
     const order = await orderService.getOrder(orderId, req.user);
@@ -22,5 +27,6 @@ const getOrder = catchAsync(async(req, res) => {
 module.exports = {
     createOrder,
     payOrder,
+    updateOrder,
     getOrder,
 };
