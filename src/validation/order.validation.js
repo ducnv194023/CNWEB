@@ -12,7 +12,7 @@ const createOrder = {
   body: Joi.object().keys({
     orderName: Joi.string().required(),
     orderItems: Joi.array().items(orderItem),
-    description: Joi.string().allow('')
+    description: Joi.string()
   })
 }
 
@@ -20,7 +20,7 @@ const updateOrder = {
   body: Joi.object().keys({
     orderName: Joi.string().required(),
     orderItems: Joi.array().items(orderItem),
-    description: Joi.string().allow('')
+    description: Joi.string()
   })
 }
 
