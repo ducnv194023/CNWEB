@@ -109,8 +109,11 @@ const getOwnerTicket = async (requestBody) => {
   // converter status
   const today = getStartOfDay()
   _.forEach(ownerTickets, (item) => {
-    if (item.startDate > today) {
+    if (item.endDate < today) {
       item.status = status.deactivated
+    }
+    if (today < item.startDate) {
+      item.status = status.not_yet_activated
     }
     if (item.endDate >= today && today >= item.startDate) {
       item.status = status.activated
