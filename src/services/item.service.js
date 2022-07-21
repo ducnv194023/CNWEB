@@ -88,14 +88,15 @@ const signTicket = async (requestBody) => {
   const endDate = _.get(item, 'endDate')
   item.endDate = converterStringToDate(endDate)
   const today = getStartOfDay()
-  // Nếu endDate < today thì vé sẽ ở trạng thái chưa áp dụng
-  if (endDate < today) {
+  // Nếu startDate > today thì vé sẽ ở trạng thái chưa áp dụng
+  if (item.startDate > today) {
     item.status = status.not_yet_activated
   }
   // Nếu today >= startDate và today <= endDate thì vé ở trạng thái áp dụng
-  if (endDate >= today && today >= startDate) {
+  if (item.endDate >= today && today >= item.startDate) {
     item.status = status.activated
   }
+  console.log(item)
   return Item.create(item)
 }
 
