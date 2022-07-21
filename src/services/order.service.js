@@ -8,12 +8,15 @@ const { status, prefix } = require('../utils/constant')
 // privated
 const _getNextOrderName = async () => {
   const lastOrder = await Order.getLastOrderToday()
+  console.log(lastOrder)
+  console.log('lastOrder')
+
   if (_.isEmpty(lastOrder)) {
     return '001'
   }
   // get 3 last characters of the pattern CCC-YYYYMMDDxxx
-  // order 001
-  const lastNumberStr = _.get(lastOrder, '0.orderName', '').substring(5, 8)
+  const lastNumberStr = _.get(lastOrder, '0.orderName', '').substring(6, 9)
+  console.log(lastNumberStr)
   const nextNumber = parseInt(lastNumberStr, 10) + 1
   return nextNumber.toLocaleString('en-US', { minimumIntegerDigits: 3, useGrouping: false })
 }
@@ -21,10 +24,10 @@ const _getNextOrderName = async () => {
 const _getOrderName = async () => {
   const prefixNumber = prefix.order
   const number = await _getNextOrderName()
+  console.log(number)
   return `${prefixNumber} ${number}`
 }
 const createOrder = async (createOrderRequest, user) => {
-  console.log(createOrderRequest)
   const userCreatedOrder = await User.findById(user.id)
   const { phone, name } = userCreatedOrder
   const createOrder = pick(createOrderRequest, ['orderItems', 'description'])
@@ -34,7 +37,6 @@ const createOrder = async (createOrderRequest, user) => {
     orderItem.itemTotalPrice = orderItem.itemPrice * orderItem.itemQuantity
   })
   createOrder.totalPrice = _.sumBy(orderItems, 'itemTotalPrice')
-  console.log(createOrder)
   return Order.create({ ...createOrder, userId: user.id, userName: name, userPhone: phone })
 }
 
