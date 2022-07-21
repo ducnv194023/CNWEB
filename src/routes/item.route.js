@@ -15,7 +15,7 @@ router.route('/pagination').post(auth, validate(itemValidation.getItems), itemCo
 // người dùng mua vé bơi, thêm thông tin người dùng vào trong vé
 router.route('/sign-ticket').post(auth, validate(itemValidation.signTicket), itemController.signTicket)
 // lấy ra vé đã mua của người dùng
-router.route('owner-ticket').post(auth, validate(itemValidation.getOwnerTicket), itemController.getOwnerTicket)
+router.route('/owner-ticket').post(auth, validate(itemValidation.getOwnerTicket), itemController.getOwnerTicket)
 
 router.route('/:itemId')
 // Lấy ra một danh mục
