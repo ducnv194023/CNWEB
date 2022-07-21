@@ -4,13 +4,30 @@ const Order = require('../models/order.model')
 const { throwBadRequest } = require('../utils/badRequestHandlingUtils')
 const { orderMsg } = require('../utils/Message')
 const pick = require('../utils/pick')
-const { status } = require('../utils/constant')
+const { status, prefix } = require('../utils/constant')
+// privated
+const _getNextOrderName = async () => {
+  const lastOrder = await Order.getLastOrderToday()
+  if (_.isEmpty(lastOrder)) {
+    return '001'
+  }
+  // get 3 last characters of the pattern CCC-YYYYMMDDxxx
+  // order 001
+  const lastNumberStr = _.get(lastOrder, '0.orderName', '').substring(5, 8)
+  const nextNumber = parseInt(lastNumberStr, 10) + 1
+  return nextNumber.toLocaleString('en-US', { minimumIntegerDigits: 3, useGrouping: false })
+}
 
+const _getOrderName = async () => {
+  const prefixNumber = prefix.order
+  const number = await _getNextOrderName()
+  return `${prefixNumber} ${number}`
+}
 const createOrder = async (createOrderRequest, user) => {
   const userCreatedOrder = await User.findById(user.id)
   const { phone, name } = userCreatedOrder
   const createOrder = pick(createOrderRequest, ['orderName', 'orderItems', 'description'])
-  const orderName = _.get(createOrder, 'orderName')
+  const orderName = _getOrderName()
   const orderWithOrderName = await Order.findOne({ orderName })
   throwBadRequest(orderWithOrderName, orderMsg.nameExisted)
   const orderItems = _.get(createOrder, 'orderItems')

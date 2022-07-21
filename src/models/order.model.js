@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const { status } = require('../utils/constant')
+const { getStartOfDay } = require('../utils/getTime')
 
 const orderSchema = new mongoose.Schema(
   {
@@ -51,6 +52,13 @@ const orderSchema = new mongoose.Schema(
     timestamps: true
   }
 )
-
+orderSchema.statics.getLastOrderToday = async function () {
+  const startOfDay = getStartOfDay()
+  return this.find({
+    createdAt: { $gte: startOfDay }
+  })
+    .sort({ createdAt: -1 })
+    .limit(1)
+}
 const order = mongoose.model('Order', orderSchema)
 module.exports = order

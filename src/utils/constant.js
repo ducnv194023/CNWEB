@@ -1,3 +1,6 @@
+const prefix = {
+  order: 'order'
+}
 const status = {
   enabled: 'enabled',
   disabled: 'disabled',
@@ -14,5 +17,6 @@ const itemType = {
 }
 module.exports = {
   status,
-  itemType
+  itemType,
+  prefix
 }
