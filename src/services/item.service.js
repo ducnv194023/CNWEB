@@ -23,6 +23,7 @@ const createItem = async (itemBody) => {
     'description',
     'image'
   ])
+  console.log(item);
   return Item.create(item)
 }
 
