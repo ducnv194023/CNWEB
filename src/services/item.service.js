@@ -1,7 +1,7 @@
 const _ = require('lodash')
 const Item = require('../models/item.model')
 const Message = require('../utils/Message')
-const { status } = require('../utils/constant')
+const { status, itemType } = require('../utils/constant')
 const { converterStringToDate, getStartOfDay } = require('../utils/getTime')
 const pick = require('../utils/pick')
 const { throwBadRequest } = require('../utils/badRequestHandlingUtils')
@@ -102,7 +102,10 @@ const signTicket = async (requestBody) => {
 
 const getOwnerTicket = async (requestBody) => {
   const userId = _.get(requestBody, 'userId')
-  const ownerTickets = await Item.find({ userId })
+  const ownerTickets = await Item.find({
+    userId,
+    itemType: { $ne: itemType.swimming_wear }
+  })
   // converter status
   const today = getStartOfDay()
   _.forEach(ownerTickets, (item) => {
@@ -129,6 +132,16 @@ const signSwimmingWear = async (requestBody) => {
   ])
   return Item.create(swimmingWear)
 }
+
+const getOwnerWear = async (requestBody) => {
+  const userId = _.get(requestBody, 'userId')
+  const getOwnerWears = await Item.find({
+    userId,
+    itemType: itemType.swimming_wear
+  })
+  return getOwnerWears
+}
+
 module.exports = {
   createItem,
   getItems,
@@ -137,5 +150,6 @@ module.exports = {
   deleteItemById,
   signTicket,
   getOwnerTicket,
-  signSwimmingWear
+  signSwimmingWear,
+  getOwnerWear
 }

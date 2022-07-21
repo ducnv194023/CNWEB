@@ -60,11 +60,18 @@ const signSwimmingWear = {
     phone: Joi.string().required()
   })
 }
+const getOwnerWear = {
+  body: Joi.object().keys({
+    userId: Joi.required().custom(objectId)
+  })
+}
+
 module.exports = {
   createItem,
   getItems,
   updateItem,
   signTicket,
   getOwnerTicket,
-  signSwimmingWear
+  signSwimmingWear,
+  getOwnerWear
 }

@@ -46,6 +46,10 @@ const signSwimmingWear = catchAsync(async (req, res) => {
   sendSuccess({ res, data: swimmingWear, message: Message.itemMsg.success })
 })
 
+const getOwnerWear = catchAsync(async (req, res) => {
+  const getOwnerWear = await itemService.getOwnerWear(req.body)
+  sendSuccess({ res, data: getOwnerWear, message: Message.itemMsg.success })
+})
 module.exports = {
   createItem,
   getItems,
@@ -54,5 +58,6 @@ module.exports = {
   deleteItemById,
   signTicket,
   getOwnerTicket,
-  signSwimmingWear
+  signSwimmingWear,
+  getOwnerWear
 }
