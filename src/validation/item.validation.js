@@ -21,6 +21,7 @@ const updateItem = {
     itemId: Joi.required().custom(objectId),
     itemName: Joi.string(),
     price: Joi.number(),
+    image: Joi.string(),
     description: Joi.string()
   })
 }
@@ -46,10 +47,31 @@ const getOwnerTicket = {
     userId: Joi.required().custom(objectId)
   })
 }
+
+const signSwimmingWear = {
+  body: Joi.object().keys({
+    itemName: Joi.string().required(),
+    price: Joi.number().required(),
+    itemType: Joi.string().valid(itemType.ticketDate, itemType.ticketMonth, itemType.swimming_wear),
+    image: Joi.string().required(),
+    description: Joi.string(),
+    userId: Joi.required().custom(objectId),
+    userName: Joi.string().required(),
+    phone: Joi.string().required()
+  })
+}
+const getOwnerWear = {
+  body: Joi.object().keys({
+    userId: Joi.required().custom(objectId)
+  })
+}
+
 module.exports = {
   createItem,
   getItems,
   updateItem,
   signTicket,
-  getOwnerTicket
+  getOwnerTicket,
+  signSwimmingWear,
+  getOwnerWear
 }

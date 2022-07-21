@@ -40,6 +40,16 @@ const getOwnerTicket = catchAsync(async (req, res) => {
   const ownerTickets = await itemService.getOwnerTicket(req.body)
   sendSuccess({ res, data: ownerTickets, message: Message.itemMsg.success })
 })
+
+const signSwimmingWear = catchAsync(async (req, res) => {
+  const swimmingWear = await itemService.signSwimmingWear(req.body)
+  sendSuccess({ res, data: swimmingWear, message: Message.itemMsg.success })
+})
+
+const getOwnerWear = catchAsync(async (req, res) => {
+  const getOwnerWear = await itemService.getOwnerWear(req.body)
+  sendSuccess({ res, data: getOwnerWear, message: Message.itemMsg.success })
+})
 module.exports = {
   createItem,
   getItems,
@@ -47,5 +57,7 @@ module.exports = {
   updateItemById,
   deleteItemById,
   signTicket,
-  getOwnerTicket
+  getOwnerTicket,
+  signSwimmingWear,
+  getOwnerWear
 }

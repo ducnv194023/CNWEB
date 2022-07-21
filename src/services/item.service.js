@@ -1,7 +1,7 @@
 const _ = require('lodash')
 const Item = require('../models/item.model')
 const Message = require('../utils/Message')
-const { status } = require('../utils/constant')
+const { status, itemType } = require('../utils/constant')
 const { converterStringToDate, getStartOfDay } = require('../utils/getTime')
 const pick = require('../utils/pick')
 const { throwBadRequest } = require('../utils/badRequestHandlingUtils')
@@ -33,6 +33,7 @@ const getItems = async (requestBody) => {
   const itemTypeString = _.get(requestBody, 'itemType')
   const itemTypeList = itemTypeString.split(',')
   filter.itemType = { $in: itemTypeList }
+  filter.userId = { $exists: false }
   if (!filter.status) {
     filter.status = {
       $ne: status.disabled
@@ -53,7 +54,8 @@ const updateItemById = async (itemUpdateRequest) => {
   const itemBody = pick(itemUpdateRequest, [
     'itemName',
     'price',
-    'description'
+    'description',
+    'image'
   ])
   const updateItem = await Item.findByIdAndUpdate(
     itemId, itemBody, { new: true }
@@ -88,12 +90,12 @@ const signTicket = async (requestBody) => {
   const endDate = _.get(item, 'endDate')
   item.endDate = converterStringToDate(endDate)
   const today = getStartOfDay()
-  // Nếu endDate < today thì vé sẽ ở trạng thái chưa áp dụng
-  if (endDate < today) {
+  // Nếu startDate > today thì vé sẽ ở trạng thái chưa áp dụng
+  if (item.startDate > today) {
     item.status = status.not_yet_activated
   }
   // Nếu today >= startDate và today <= endDate thì vé ở trạng thái áp dụng
-  if (endDate >= today && today >= startDate) {
+  if (item.endDate >= today && today >= item.startDate) {
     item.status = status.activated
   }
   return Item.create(item)
@@ -101,12 +103,18 @@ const signTicket = async (requestBody) => {
 
 const getOwnerTicket = async (requestBody) => {
   const userId = _.get(requestBody, 'userId')
-  const ownerTickets = await Item.find({ userId })
+  const ownerTickets = await Item.find({
+    userId,
+    itemType: { $ne: itemType.swimming_wear }
+  })
   // converter status
   const today = getStartOfDay()
   _.forEach(ownerTickets, (item) => {
-    if (item.startDate > today) {
+    if (item.endDate < today) {
       item.status = status.deactivated
+    }
+    if (today < item.startDate) {
+      item.status = status.not_yet_activated
     }
     if (item.endDate >= today && today >= item.startDate) {
       item.status = status.activated
@@ -114,6 +122,30 @@ const getOwnerTicket = async (requestBody) => {
   })
   return ownerTickets
 }
+
+const signSwimmingWear = async (requestBody) => {
+  const swimmingWear = pick(requestBody, [
+    'itemName',
+    'price',
+    'image',
+    'userId',
+    'userName',
+    'phone',
+    'itemType',
+    'description'
+  ])
+  return Item.create(swimmingWear)
+}
+
+const getOwnerWear = async (requestBody) => {
+  const userId = _.get(requestBody, 'userId')
+  const getOwnerWears = await Item.find({
+    userId,
+    itemType: itemType.swimming_wear
+  })
+  return getOwnerWears
+}
+
 module.exports = {
   createItem,
   getItems,
@@ -121,5 +153,7 @@ module.exports = {
   updateItemById,
   deleteItemById,
   signTicket,
-  getOwnerTicket
+  getOwnerTicket,
+  signSwimmingWear,
+  getOwnerWear
 }
