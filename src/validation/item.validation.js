@@ -47,10 +47,24 @@ const getOwnerTicket = {
     userId: Joi.required().custom(objectId)
   })
 }
+
+const signSwimmingWear = {
+  body: Joi.object().keys({
+    itemName: Joi.string().required(),
+    price: Joi.number().required(),
+    itemType: Joi.string().valid(itemType.ticketDate, itemType.ticketMonth, itemType.swimming_wear),
+    image: Joi.string().required(),
+    description: Joi.string(),
+    userId: Joi.required().custom(objectId),
+    userName: Joi.string().required(),
+    phone: Joi.string().required()
+  })
+}
 module.exports = {
   createItem,
   getItems,
   updateItem,
   signTicket,
-  getOwnerTicket
+  getOwnerTicket,
+  signSwimmingWear
 }

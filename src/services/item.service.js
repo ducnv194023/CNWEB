@@ -97,7 +97,6 @@ const signTicket = async (requestBody) => {
   if (item.endDate >= today && today >= item.startDate) {
     item.status = status.activated
   }
-  console.log(item)
   return Item.create(item)
 }
 
@@ -116,6 +115,20 @@ const getOwnerTicket = async (requestBody) => {
   })
   return ownerTickets
 }
+
+const signSwimmingWear = async (requestBody) => {
+  const swimmingWear = pick(requestBody, [
+    'itemName',
+    'price',
+    'image',
+    'userId',
+    'userName',
+    'phone',
+    'itemType',
+    'description'
+  ])
+  return Item.create(swimmingWear)
+}
 module.exports = {
   createItem,
   getItems,
@@ -123,5 +136,6 @@ module.exports = {
   updateItemById,
   deleteItemById,
   signTicket,
-  getOwnerTicket
+  getOwnerTicket,
+  signSwimmingWear
 }

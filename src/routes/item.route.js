@@ -16,6 +16,8 @@ router.route('/pagination').post(auth, validate(itemValidation.getItems), itemCo
 router.route('/sign-ticket').post(auth, validate(itemValidation.signTicket), itemController.signTicket)
 // lấy ra vé đã mua của người dùng
 router.route('/owner-ticket').post(auth, validate(itemValidation.getOwnerTicket), itemController.getOwnerTicket)
+// người dùng mua đồ bơi, thêm thông tin người dùng
+router.route('/sign-swimmingwear').post(auth, validate(itemValidation.signSwimmingWear), itemController.signSwimmingWear)
 
 router.route('/:itemId')
 // Lấy ra một danh mục
