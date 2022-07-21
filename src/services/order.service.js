@@ -24,17 +24,17 @@ const _getOrderName = async () => {
   return `${prefixNumber} ${number}`
 }
 const createOrder = async (createOrderRequest, user) => {
+  console.log(createOrderRequest)
   const userCreatedOrder = await User.findById(user.id)
   const { phone, name } = userCreatedOrder
   const createOrder = pick(createOrderRequest, ['orderItems', 'description'])
-  const orderName = _getOrderName()
-  const orderWithOrderName = await Order.findOne({ orderName })
-  throwBadRequest(orderWithOrderName, orderMsg.nameExisted)
+  createOrder.orderName = await _getOrderName()
   const orderItems = _.get(createOrder, 'orderItems')
   _.forEach(orderItems, (orderItem) => {
     orderItem.itemTotalPrice = orderItem.itemPrice * orderItem.itemQuantity
   })
   createOrder.totalPrice = _.sumBy(orderItems, 'itemTotalPrice')
+  console.log(createOrder)
   return Order.create({ ...createOrder, userId: user.id, userName: name, userPhone: phone })
 }
 
