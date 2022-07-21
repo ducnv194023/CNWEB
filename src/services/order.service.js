@@ -26,7 +26,7 @@ const _getOrderName = async () => {
 const createOrder = async (createOrderRequest, user) => {
   const userCreatedOrder = await User.findById(user.id)
   const { phone, name } = userCreatedOrder
-  const createOrder = pick(createOrderRequest, ['orderName', 'orderItems', 'description'])
+  const createOrder = pick(createOrderRequest, ['orderItems', 'description'])
   const orderName = _getOrderName()
   const orderWithOrderName = await Order.findOne({ orderName })
   throwBadRequest(orderWithOrderName, orderMsg.nameExisted)
