@@ -32,6 +32,7 @@ const getItems = async (requestBody) => {
   const itemTypeString = _.get(requestBody, 'itemType')
   const itemTypeList = itemTypeString.split(',')
   filter.itemType = { $in: itemTypeList }
+  filter.userId = { $exists: false }
   if (!filter.status) {
     filter.status = {
       $ne: status.disabled
