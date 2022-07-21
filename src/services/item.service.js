@@ -53,7 +53,8 @@ const updateItemById = async (itemUpdateRequest) => {
   const itemBody = pick(itemUpdateRequest, [
     'itemName',
     'price',
-    'description'
+    'description',
+    'image'
   ])
   const updateItem = await Item.findByIdAndUpdate(
     itemId, itemBody, { new: true }

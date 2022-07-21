@@ -21,6 +21,7 @@ const updateItem = {
     itemId: Joi.required().custom(objectId),
     itemName: Joi.string(),
     price: Joi.number(),
+    image: Joi.string(),
     description: Joi.string()
   })
 }
