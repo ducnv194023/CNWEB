@@ -10,7 +10,6 @@ const orderItem = Joi.object().keys({
 
 const createOrder = {
   body: Joi.object().keys({
-    orderName: Joi.string().required(),
     orderItems: Joi.array().items(orderItem),
     description: Joi.string()
   })
